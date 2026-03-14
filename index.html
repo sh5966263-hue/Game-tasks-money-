@@ -2,152 +2,165 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Game Tasks Money</title>
+<title>Complete the tasks to earn money</title>
 
 <style>
+
 body{
 font-family: Arial;
-background:#f7e6b5;
+background:#f7e2a6;
 text-align:center;
+margin:0;
 }
 
-.box{
+.header{
+font-size:40px;
+padding:20px;
+font-weight:bold;
+}
+
+.money{
+font-size:30px;
+margin:10px;
+}
+
+.task{
 background:white;
+border-radius:15px;
 margin:20px;
 padding:20px;
-border-radius:15px;
-box-shadow:0 0 10px #999;
+box-shadow:0 5px 10px rgba(0,0,0,0.2);
 }
 
-button{
-padding:10px 20px;
-border:none;
+.progress{
+height:15px;
+background:#ddd;
 border-radius:10px;
-background:#1e88e5;
+margin:10px 0;
+}
+
+.bar{
+height:15px;
+background:gold;
+width:0%;
+border-radius:10px;
+}
+
+.btn{
+background:#2f80ed;
 color:white;
+border:none;
+padding:10px 20px;
+border-radius:10px;
 font-size:16px;
 }
 
 .withdraw{
-background:#ff9800;
+background:white;
+margin:20px;
+padding:20px;
+border-radius:15px;
 }
 
-input{
-padding:10px;
-margin:5px;
-width:80%;
+.withdraw button{
+margin:10px;
+padding:15px;
+font-size:18px;
+border-radius:10px;
+border:none;
 }
+
+.zalo{background:#2d9cff;color:white;}
+.momo{background:#ff3ca6;color:white;}
+.mb{background:#2979ff;color:white;}
+
 </style>
-
 </head>
 
 <body>
 
-<h1>Game Tasks Money</h1>
+<div class="header">Tiền: <span id="money">0</span>đ</div>
 
-<div class="box">
-<h2>Tiền: <span id="money">0</span> đ</h2>
-</div>
+<div id="tasks"></div>
 
-<div class="box">
-<h3>Nhiệm vụ 1</h3>
-Tiến độ: <span id="p1">0</span>/10<br><br>
-<button onclick="watchAd(1)">XEM QUẢNG CÁO</button>
-</div>
+<div class="withdraw">
 
-<div class="box">
-<h3>Nhiệm vụ 2</h3>
-Tiến độ: <span id="p2">0</span>/10<br><br>
-<button onclick="watchAd(2)">XEM QUẢNG CÁO</button>
-</div>
+<h2>Rút thưởng</h2>
 
-<div class="box">
-<h3>Nhiệm vụ 3</h3>
-Tiến độ: <span id="p3">0</span>/10<br><br>
-<button onclick="watchAd(3)">XEM QUẢNG CÁO</button>
-</div>
+<input placeholder="Số tài khoản"><br><br>
+<input placeholder="Tên tài khoản"><br><br>
 
-<div class="box">
-<h3>Nhiệm vụ 4</h3>
-Tiến độ: <span id="p4">0</span>/10<br><br>
-<button onclick="watchAd(4)">XEM QUẢNG CÁO</button>
-</div>
+<button class="zalo">ZaloPay</button>
+<button class="momo">MoMo</button>
+<button class="mb">MB Bank</button>
 
-<div class="box">
-<h3>Nhiệm vụ 5</h3>
-Tiến độ: <span id="p5">0</span>/10<br><br>
-<button onclick="watchAd(5)">XEM QUẢNG CÁO</button>
-</div>
+<br><br>
 
-<div class="box">
-<h2>Rút Thưởng</h2>
-
-<select id="method">
-<option>ZaloPay</option>
-<option>MoMo</option>
-<option>MB Bank</option>
-</select><br><br>
-
-<input id="phone" placeholder="Số tài khoản"><br>
-<input id="name" placeholder="Tên tài khoản"><br>
-
-<button class="withdraw" onclick="withdraw()">RÚT TIỀN</button>
+<button onclick="withdraw()">RÚT TIỀN</button>
 
 </div>
 
 <script>
 
-let money=0
+let money = 0
 
-let progress=[0,0,0,0,0]
+function createTask(id){
 
-function watchAd(i){
+let progress = 0
 
-alert("Đang xem quảng cáo...")
+let task = document.createElement("div")
+task.className="task"
 
-progress[i-1]++
+task.innerHTML=`
+<h3>Nhiệm vụ ${id}</h3>
 
-document.getElementById("p"+i).innerText=progress[i-1]
+<div class="progress">
+<div class="bar" id="bar${id}"></div>
+</div>
 
-if(progress[i-1]==10){
+<button class="btn">XEM QUẢNG CÁO</button>
+`
 
-money+=2000
+task.querySelector("button").onclick=function(){
 
-document.getElementById("money").innerText=money
+progress++
 
-alert("Bạn nhận 2000đ")
+let percent = progress*10
 
-progress[i-1]=0
+document.getElementById("bar"+id).style.width = percent+"%"
 
-document.getElementById("p"+i).innerText=0
+money+=200
+
+document.getElementById("money").innerText = money
+
+if(progress>=10){
+
+alert("Hoàn thành nhiệm vụ!")
 
 }
 
+}
+
+document.getElementById("tasks").appendChild(task)
+
+}
+
+for(let i=1;i<=5;i++){
+createTask(i)
 }
 
 function withdraw(){
 
-let phone=document.getElementById("phone").value
-
-let name=document.getElementById("name").value
-
 if(money<2000){
-
-alert("Cần tối thiểu 2000đ để rút")
-
+alert("Cần 2000đ để rút")
 return
-
 }
 
-alert("Rút tiền thành công (demo)")
-
-money=0
-
-document.getElementById("money").innerText=0
+alert("Yêu cầu rút tiền đã gửi!")
 
 }
 
 </script>
 
 </body>
-                          </html>
+</html>
