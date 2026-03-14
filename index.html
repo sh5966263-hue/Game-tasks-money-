@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Game Tasks Money</title>
+
+<style>
+body{
+font-family: Arial;
+background:#f7e6b5;
+text-align:center;
+}
+
+.box{
+background:white;
+margin:20px;
+padding:20px;
+border-radius:15px;
+box-shadow:0 0 10px #999;
+}
+
+button{
+padding:10px 20px;
+border:none;
+border-radius:10px;
+background:#1e88e5;
+color:white;
+font-size:16px;
+}
+
+.withdraw{
+background:#ff9800;
+}
+
+input{
+padding:10px;
+margin:5px;
+width:80%;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>Game Tasks Money</h1>
+
+<div class="box">
+<h2>Tiền: <span id="money">0</span> đ</h2>
+</div>
+
+<div class="box">
+<h3>Nhiệm vụ 1</h3>
+Tiến độ: <span id="p1">0</span>/10<br><br>
+<button onclick="watchAd(1)">XEM QUẢNG CÁO</button>
+</div>
+
+<div class="box">
+<h3>Nhiệm vụ 2</h3>
+Tiến độ: <span id="p2">0</span>/10<br><br>
+<button onclick="watchAd(2)">XEM QUẢNG CÁO</button>
+</div>
+
+<div class="box">
+<h3>Nhiệm vụ 3</h3>
+Tiến độ: <span id="p3">0</span>/10<br><br>
+<button onclick="watchAd(3)">XEM QUẢNG CÁO</button>
+</div>
+
+<div class="box">
+<h3>Nhiệm vụ 4</h3>
+Tiến độ: <span id="p4">0</span>/10<br><br>
+<button onclick="watchAd(4)">XEM QUẢNG CÁO</button>
+</div>
+
+<div class="box">
+<h3>Nhiệm vụ 5</h3>
+Tiến độ: <span id="p5">0</span>/10<br><br>
+<button onclick="watchAd(5)">XEM QUẢNG CÁO</button>
+</div>
+
+<div class="box">
+<h2>Rút Thưởng</h2>
+
+<select id="method">
+<option>ZaloPay</option>
+<option>MoMo</option>
+<option>MB Bank</option>
+</select><br><br>
+
+<input id="phone" placeholder="Số tài khoản"><br>
+<input id="name" placeholder="Tên tài khoản"><br>
+
+<button class="withdraw" onclick="withdraw()">RÚT TIỀN</button>
+
+</div>
+
+<script>
+
+let money=0
+
+let progress=[0,0,0,0,0]
+
+function watchAd(i){
+
+alert("Đang xem quảng cáo...")
+
+progress[i-1]++
+
+document.getElementById("p"+i).innerText=progress[i-1]
+
+if(progress[i-1]==10){
+
+money+=2000
+
+document.getElementById("money").innerText=money
+
+alert("Bạn nhận 2000đ")
+
+progress[i-1]=0
+
+document.getElementById("p"+i).innerText=0
+
+}
+
+}
+
+function withdraw(){
+
+let phone=document.getElementById("phone").value
+
+let name=document.getElementById("name").value
+
+if(money<2000){
+
+alert("Cần tối thiểu 2000đ để rút")
+
+return
+
+}
+
+alert("Rút tiền thành công (demo)")
+
+money=0
+
+document.getElementById("money").innerText=0
+
+}
+
+</script>
+
+</body>
+                          </html>
